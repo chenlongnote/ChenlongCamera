@@ -1,13 +1,9 @@
 package com.chenlongguo.lib_cl_camera
 
 import android.app.Activity
-import android.content.Intent
 import androidx.fragment.app.Fragment
-import java.lang.ref.WeakReference
 
 object CaptureUtil {
-    const val PATH = "path"
-    const val MEDIA_TYPE = "media_type"
     const val REQUEST = "request"
 
     const val RESULT_TYPE_UNKNOWN = 0
