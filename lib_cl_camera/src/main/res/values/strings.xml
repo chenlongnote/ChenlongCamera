@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">相机</string>
+    <string name="capture_tips">轻触拍照，长按摄像</string>
+    <string name="capture_permission_message">必须的权限没有得到授权，功能将无法使用 请重新授权!</string>
+    <string name="finish">完成</string>
+    <string name="picture">拍照</string>
+    <string name="description_info">信息</string>
+    <string name="request_permission">此功能需要相机权限</string>
+    <string name="request_storage_permission">此功能需要访问外部存储权限</string>
+    <string name="camera_error">本设备不支持相机第二代API</string>
+    <string name="request_permission_failed">权限获取失败！</string>
+    <string name="select_picture_photograph">拍照</string>
+    <string name="select_picture_select_from_album">从相册选择</string>
+    <string name="flash_off">关闭</string>
+    <string name="flash_auto">自动</string>
+    <string name="flash_on">打开</string>
+    <string name="flash_always_on">常亮</string>
+    <string name="camera_config_failed">相机配置失败!</string>
+</resources>

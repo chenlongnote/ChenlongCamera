@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="select_flash">#EE16AE16</color>
+
+    <color name="control_background">#CC4285f4</color>
+    <color name="capture_btn_process_color">#EE16AE16</color>
+    <color name="capture_btn_outside_color">#EEDCDCDC</color>
+    <color name="capture_btn_inside_color">#FFFFFFFF</color>
+</resources>

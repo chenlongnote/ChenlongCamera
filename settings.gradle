@@ -1,0 +1,3 @@
+include ':lib_cl_camera'
+include ':app'
+rootProject.name = "ChenlongCamera"

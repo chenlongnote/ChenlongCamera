@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.chenlongguo.lib_cl_camera.camera2.view.AutoFitTextureView
+            android:id="@+id/texture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <ImageView
+            android:id="@+id/display_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:visibility="gone" />
+
+        <VideoView
+            android:id="@+id/display_video"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone" />
+
+        <com.chenlongguo.lib_cl_camera.camera2.view.FocusView
+            android:id="@+id/focus_view"
+            android:layout_width="@dimen/Dp_80"
+            android:layout_height="@dimen/Dp_80"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+
+            <com.chenlongguo.lib_cl_camera.camera2.view.ChooseFlashView2
+                android:id="@+id/choose_flash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/Dp_16"
+                android:src="@drawable/ic_flash_on" />
+
+            <ImageView
+                android:id="@+id/image_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/Dp_16"
+                android:src="@drawable/ic_switch_camera" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/control"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/Dp_112"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/close_up"
+                android:layout_marginStart="@dimen/Dp_18"
+                android:layout_width="@dimen/Dp_32"
+                android:layout_height="@dimen/Dp_32"
+                android:layout_gravity="start|center"
+                android:src="@drawable/ic_close_up"
+                />
+
+            <com.chenlongguo.lib_cl_camera.camera2.view.CaptureButton
+                android:id="@+id/capture_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/btn_ok"
+                android:layout_width="@dimen/Dp_46"
+                android:layout_height="@dimen/Dp_28"
+                android:layout_gravity="center|end"
+                android:layout_marginRight="@dimen/Dp_18"
+                android:background="@drawable/finish_btn_bg"
+                android:gravity="center"
+                android:text="@string/finish"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/Sp_12"
+                android:visibility="gone" />
+        </FrameLayout>
+
+    </RelativeLayout>
+</layout>
