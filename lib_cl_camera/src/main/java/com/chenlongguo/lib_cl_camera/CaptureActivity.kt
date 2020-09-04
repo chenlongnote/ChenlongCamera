@@ -7,6 +7,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.chenlongguo.lib_cl_camera.camera2.Camera2BasicFragment
+import com.chenlongguo.lib_cl_camera.camera2.utils.Logger
 import com.chenlongguo.lib_cl_camera.databinding.ActivityCaptureBinding
 
 class CaptureActivity : AppCompatActivity() {
@@ -39,7 +40,7 @@ class CaptureActivity : AppCompatActivity() {
     }
 
     fun close(result: Result) {
-        request.result?.onResult(result)
+        Request.result?.onResult(result)
         finish()
         overridePendingTransition(0, R.anim.exit_amin);
     }

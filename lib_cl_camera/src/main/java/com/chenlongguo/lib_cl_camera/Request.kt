@@ -8,7 +8,12 @@ import java.lang.ref.WeakReference
 class Request(activity: Activity?, fragment: Fragment?) {
     private var mActivity: WeakReference<Activity>? = null
     private var mFragment: WeakReference<Fragment>? = null
-    private var requestConfig: RequestConfig = RequestConfig()
+    private var requestConfig = RequestConfig()
+    companion object {
+        @JvmStatic
+        var result: OnCaptureResult? = null
+    }
+
 
     init {
         activity?.let {
@@ -25,8 +30,8 @@ class Request(activity: Activity?, fragment: Fragment?) {
         return this
     }
 
-    fun setOnCaptureResult(result: OnCaptureResult) {
-        requestConfig.result = result
+    fun setOnCaptureResult(onCaptureResult: OnCaptureResult) {
+        result = onCaptureResult
         mActivity?.get()?.let { activity ->
             val intent = Intent(activity, CaptureActivity::class.java)
             intent.putExtra(CaptureUtil.REQUEST, requestConfig)
