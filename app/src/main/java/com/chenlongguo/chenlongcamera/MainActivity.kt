@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         findViewById<TextView>(R.id.text).setOnClickListener{
-            CaptureUtil.create(this).type(CaptureUtil.TYPE_ALL).setOnCaptureResult(object : OnCaptureResult {
+            CaptureUtil.create(this).type(CaptureUtil.TYPE_ALL).duration(3*1000).setOnCaptureResult(object : OnCaptureResult {
                 override fun onResult(result: Result) {
                     Log.d("MainActivity", result.toString())
                 }

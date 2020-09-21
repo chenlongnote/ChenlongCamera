@@ -26,6 +26,12 @@ android {
     buildFeatures {
         dataBinding = true
     }
+
+    kotlin{
+        experimental {
+            coroutines 'enable'
+        }
+    }
 }
 
 dependencies {
@@ -44,8 +50,6 @@ dependencies {
     // 基于Glide的图片处理
     implementation 'jp.wasabeef:glide-transformations:4.1.0'
 
-    // RxJava
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
 }

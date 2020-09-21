@@ -10,8 +10,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import com.chenlongguo.lib_cl_camera.camera2.utils.Logger
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.coroutines.*
 import java.util.concurrent.TimeUnit
 
 class FocusView @JvmOverloads constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
@@ -91,9 +90,10 @@ class FocusView @JvmOverloads constructor(context: Context?, attrs: AttributeSet
         set.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
                 super.onAnimationEnd(animation)
-                Observable.timer(1, TimeUnit.SECONDS)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe { visibility = GONE }
+                GlobalScope.launch(Dispatchers.Main) {
+                    delay(1000)
+                    visibility = GONE
+                }
             }
         })
         set.playTogether(outerAnim, innerAnim)

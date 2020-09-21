@@ -3,6 +3,7 @@ package com.chenlongguo.lib_cl_camera
 import android.app.Activity
 import android.content.Intent
 import androidx.fragment.app.Fragment
+import com.chenlongguo.lib_cl_camera.camera2.utils.Logger
 import java.lang.ref.WeakReference
 
 class Request(activity: Activity?, fragment: Fragment?) {
@@ -27,6 +28,14 @@ class Request(activity: Activity?, fragment: Fragment?) {
 
     fun type(type: String):Request {
         requestConfig.type = type
+        return this
+    }
+
+    fun duration(duration:Int) : Request {
+        if (duration > 1000)
+            requestConfig.duration = duration
+        else
+            Logger.w("Request", "duration is too short!")
         return this
     }
 

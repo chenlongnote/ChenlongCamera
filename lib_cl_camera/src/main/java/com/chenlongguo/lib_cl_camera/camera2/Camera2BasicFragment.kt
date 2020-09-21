@@ -12,6 +12,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.media.MediaScannerConnection
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -351,11 +352,7 @@ class Camera2BasicFragment : Fragment(), View.OnClickListener,
                 onFileSaved(it)
             }
 
-            val captureResult = Result()
-            captureResult.resultCode = Activity.RESULT_OK
-            captureResult.type = mType
-            captureResult.originPath = mCameraInterface.getFile()?.absolutePath
-            closeActivity(captureResult)
+
         }
     }
 
@@ -365,6 +362,14 @@ class Camera2BasicFragment : Fragment(), View.OnClickListener,
 //        }
 //    }
 
+    fun onScanFinished() {
+        val captureResult = Result()
+        captureResult.resultCode = Activity.RESULT_OK
+        captureResult.type = mType
+        captureResult.originPath = mCameraInterface.getFile()?.absolutePath
+        closeActivity(captureResult)
+    }
+
     private fun onFileSaved(file: File) {
         Logger.d(TAG, "onFileSaved:" + file.absolutePath)
         val mimeType = MimeTypeMap.getSingleton()
@@ -372,9 +377,10 @@ class Camera2BasicFragment : Fragment(), View.OnClickListener,
         MediaScannerConnection.scanFile(
             requireContext(),
             arrayOf(file.absolutePath),
-            arrayOf(mimeType),
-            null
-        )
+            arrayOf(mimeType)
+        ) { _, _ ->
+            onScanFinished()
+        }
     }
 
     /**

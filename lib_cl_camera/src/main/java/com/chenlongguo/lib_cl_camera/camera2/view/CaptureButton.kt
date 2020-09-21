@@ -16,9 +16,10 @@ import com.chenlongguo.lib_cl_camera.CaptureUtil
 import com.chenlongguo.lib_cl_camera.R
 import com.chenlongguo.lib_cl_camera.camera2.utils.DisplayUtil
 import com.chenlongguo.lib_cl_camera.camera2.utils.Logger
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class CaptureButton @JvmOverloads constructor(
     context: Context,
@@ -194,26 +195,20 @@ class CaptureButton @JvmOverloads constructor(
     }
 
     private fun recordDurationMaxAsync() {
-        Observable.create<String> { emitter ->
-            Logger.d(TAG, "recordDurationMaxAsync- subscribe")
-//            if (mCaptureButtonListener != null) {
-//                if (mRecordedTime < mMinDuration)
-//                    mCaptureButtonListener?.recordShort(mRecordedTime.toLong()) //回调录制时间过短
-//                else
-//                    mCaptureButtonListener?.recordEnd(mRecordedTime.toLong()) //回调录制结束
-//            }
+        GlobalScope.launch(Dispatchers.IO) {
+            Logger.d(TAG, "1 ${Thread.currentThread().name}")
             mCaptureButtonListener?.recordDurationMax()
-            emitter.onNext("")
-            emitter.onComplete()
+            Logger.d(TAG, "2 ${Thread.currentThread().name}")
         }
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                Logger.d(TAG, "recordDurationMaxAsync- accept")
-                resetRecordAnim() //重制按钮状态
-            }
-    }
+//        runBlocking(Dispatchers.IO) {
+//            Logger.d(TAG, "1 ${Thread.currentThread().name}")
+//            mCaptureButtonListener?.recordDurationMax()
+//            Logger.d(TAG, "2 ${Thread.currentThread().name}")
+//        }
 
+        Logger.d(TAG, "3 ${Thread.currentThread().name}")
+        resetRecordAnim() //重制按钮状态
+    }
     //重制状态
     private fun resetRecordAnim() {
         Logger.d(TAG, "resetRecordAnim")

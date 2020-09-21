@@ -4,5 +4,5 @@ import java.io.Serializable
 
 class RequestConfig : Serializable {
     var type: String = CaptureUtil.TYPE_ALL
-    val duration = 10 * 1000
+    var duration = 10 * 1000
 }
