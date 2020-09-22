@@ -374,13 +374,13 @@ class Camera2BasicFragment : Fragment(), View.OnClickListener,
         Logger.d(TAG, "onFileSaved:" + file.absolutePath)
         val mimeType = MimeTypeMap.getSingleton()
             .getMimeTypeFromExtension(file.extension)
-        MediaScannerConnection.scanFile(
-            requireContext(),
-            arrayOf(file.absolutePath),
-            arrayOf(mimeType)
-        ) { _, _ ->
-            onScanFinished()
-        }
+
+        LongMediaScanner(requireContext().applicationContext, file, mimeType!!, object : LongMediaScanner.OnScanCompletedListener {
+            override fun onScanCompleted(path: String?, uri: Uri?) {
+                Logger.d(TAG, "$path , $uri")
+                onScanFinished()
+            }
+        })
     }
 
     /**
