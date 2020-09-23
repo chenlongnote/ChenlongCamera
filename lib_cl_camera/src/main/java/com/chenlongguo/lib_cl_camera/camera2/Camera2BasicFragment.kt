@@ -11,22 +11,20 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.webkit.MimeTypeMap
 import android.widget.MediaController
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-
 import com.chenlongguo.lib_cl_camera.*
 import com.chenlongguo.lib_cl_camera.camera2.utils.AngleUtil.Companion.getSensorAngle
+import com.chenlongguo.lib_cl_camera.camera2.utils.DisplayUtil
 import com.chenlongguo.lib_cl_camera.camera2.utils.Logger
 import com.chenlongguo.lib_cl_camera.camera2.view.CaptureButtonListener
 import com.chenlongguo.lib_cl_camera.camera2.view.OnFlashStateChangedListener
@@ -97,7 +95,17 @@ class Camera2BasicFragment : Fragment(), View.OnClickListener,
         }
     }
 
-
+    private fun configByNavigationBar() {
+        val menu: Boolean = ViewConfiguration.get(requireContext()).hasPermanentMenuKey()
+        val back: Boolean = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK)
+        Logger.d(TAG, "menu:$menu, back:$back")
+        val hasNavigationBar = (menu || back)
+        if (hasNavigationBar) {
+            val layoutParams = binding.control.layoutParams as RelativeLayout.LayoutParams
+            layoutParams.bottomMargin = DisplayUtil.dpToPx(30)
+            binding.control.layoutParams = layoutParams
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,7 +115,8 @@ class Camera2BasicFragment : Fragment(), View.OnClickListener,
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+        savedInstanceState: Bundle?
+    ): View? {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_camera2_basic, container, false)
         return binding.root
@@ -115,7 +124,7 @@ class Camera2BasicFragment : Fragment(), View.OnClickListener,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Logger.d(TAG, "onViewCreated")
-
+//        configByNavigationBar()
         binding.captureButton.type = config.type
         binding.captureButton.setDuration(config.duration)
         binding.captureButton.setCaptureButtonListener(mCaptureButtonListener)
@@ -374,12 +383,16 @@ class Camera2BasicFragment : Fragment(), View.OnClickListener,
         val mimeType = MimeTypeMap.getSingleton()
             .getMimeTypeFromExtension(file.extension)
 
-        LongMediaScanner(requireContext().applicationContext, file, mimeType!!, object : LongMediaScanner.OnScanCompletedListener {
-            override fun onScanCompleted(path: String?, uri: Uri?) {
-                Logger.d(TAG, "$path , $uri")
-                onScanFinished()
-            }
-        })
+        LongMediaScanner(
+            requireContext().applicationContext,
+            file,
+            mimeType!!,
+            object : LongMediaScanner.OnScanCompletedListener {
+                override fun onScanCompleted(path: String?, uri: Uri?) {
+                    Logger.d(TAG, "$path , $uri")
+                    onScanFinished()
+                }
+            })
     }
 
     /**
