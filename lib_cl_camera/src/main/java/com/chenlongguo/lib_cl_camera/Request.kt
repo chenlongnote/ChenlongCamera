@@ -13,6 +13,7 @@ class Request(activity: Activity?, fragment: Fragment?) {
     companion object {
         @JvmStatic
         var result: OnCaptureResult? = null
+        var imageLoader:IImageLoader? =null
     }
 
 
@@ -39,8 +40,10 @@ class Request(activity: Activity?, fragment: Fragment?) {
         return this
     }
 
-    fun setOnCaptureResult(onCaptureResult: OnCaptureResult) {
+    fun setOnCaptureResult(loader:IImageLoader, onCaptureResult: OnCaptureResult) {
         result = onCaptureResult
+        imageLoader = loader
+
         mActivity?.get()?.let { activity ->
             val intent = Intent(activity, CaptureActivity::class.java)
             intent.putExtra(CaptureUtil.REQUEST, requestConfig)

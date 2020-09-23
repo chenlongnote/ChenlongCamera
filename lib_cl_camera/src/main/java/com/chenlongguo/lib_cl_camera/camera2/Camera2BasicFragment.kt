@@ -24,8 +24,7 @@ import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
+
 import com.chenlongguo.lib_cl_camera.*
 import com.chenlongguo.lib_cl_camera.camera2.utils.AngleUtil.Companion.getSensorAngle
 import com.chenlongguo.lib_cl_camera.camera2.utils.Logger
@@ -235,11 +234,11 @@ class Camera2BasicFragment : Fragment(), View.OnClickListener,
         binding.captureButton.visibility = View.GONE
         binding.displayVideo.visibility = View.GONE
         binding.btnOk.visibility = View.VISIBLE
-        Glide.with(context!!)
-            .load(mCameraInterface.getFile())
-            .skipMemoryCache(true) // 不使用内存缓存
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .into(binding.displayImg)
+
+        mCameraInterface.getFile()?.let {
+            Request.imageLoader?.load(requireContext(), it, binding.displayImg)
+        }
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
