@@ -195,19 +195,13 @@ class CaptureButton @JvmOverloads constructor(
     }
 
     private fun recordDurationMaxAsync() {
-        GlobalScope.launch(Dispatchers.IO) {
-            Logger.d(TAG, "1 ${Thread.currentThread().name}")
-            mCaptureButtonListener?.recordDurationMax()
-            Logger.d(TAG, "2 ${Thread.currentThread().name}")
+        GlobalScope.launch {
+            val job = launch(Dispatchers.IO) {
+                mCaptureButtonListener?.recordDurationMax()
+            }
+            job.join()
+            resetRecordAnim() //重制按钮状态
         }
-//        runBlocking(Dispatchers.IO) {
-//            Logger.d(TAG, "1 ${Thread.currentThread().name}")
-//            mCaptureButtonListener?.recordDurationMax()
-//            Logger.d(TAG, "2 ${Thread.currentThread().name}")
-//        }
-
-        Logger.d(TAG, "3 ${Thread.currentThread().name}")
-        resetRecordAnim() //重制按钮状态
     }
     //重制状态
     private fun resetRecordAnim() {

@@ -108,6 +108,10 @@ class CameraInterface(private val mContext: Context?) : ICameraInterface {
          * Conversion from screen rotation to JPEG orientation.
          */
         private val ORIENTATIONS = SparseIntArray()
+
+        /**
+         * 录像时用的
+         */
         private val DEFAULT_ORIENTATIONS = SparseIntArray()
         private val INVERSE_ORIENTATIONS = SparseIntArray()
 
